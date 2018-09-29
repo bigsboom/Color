@@ -1,0 +1,7 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="main">
+    <text class="title">{{motto}}</text>
+    <map class='map'></map>
+  </view>
+</view>
