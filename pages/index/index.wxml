@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
   <view class="main">
-    <view class='color_roll' style="background-color:{{one.hex}};border-radius: {{rollPercentage+'%'}};" bindtap="showPicker"></view>
+    <view class='color_roll' style="background-color:{{one.hex}};border-radius: {{rollPercentage+'%'}};" bindtap="showPicker" animation="{{blockChange}}"></view>
     <view class='color_text'>
       <view class='text_name'>
         <text class='text_l'>颜色名 : </text>
@@ -22,13 +22,13 @@
     </view>
     <view class="picker {{listFleg?'':'hidden'}}">
       <view class='picker_blank' bindtap="closePicker"></view>
-      <view class='picker_main'>
+      <view class='picker_main' animation="{{zoom}}">
         <view class='picker_main_title'> 
           <text class='picker_main_title_no' bindtap="clinkNo">取消</text>
           <text class='picker_main_title_yes' bindtap="clinkYes">确定</text>
         </view>
         <scroll-view class='picker_main_list' scroll-y>
-          <view class="picker_main_list_one {{listIndex==index?'picker_main_list_bg':''}}" wx:key="listIndex" wx:for="{{postList}}" wx:for-index="listIndex" wx:for-item="listItem" bindtap="clinkOne" data-index='{{listIndex}}'>
+          <view class="picker_main_list_one {{listIndex==index?'picker_main_list_bg':''}}" wx:key="listIndex" wx:for="{{postList}}" wx:for-index="listIndex" wx:for-item="listItem" bindtap="clinkOne" bindtouchstart="touchStart" bindtouchend="touchEnd" data-index='{{listIndex}}'>
             <view class='picker_main_list_one_bg' style="background-color:{{listItem.hex}};"></view>
             <text class='picker_main_list_one_text' style="color:{{listIndex==index?listItem.hex:''}}">{{listItem.chinese}}</text>
           </view>
