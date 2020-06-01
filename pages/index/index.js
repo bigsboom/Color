@@ -7,6 +7,13 @@ var postData = require('../datas/colorData.js');
 Page({
   data: {
     motto: '色彩查询',
+    tipsFleg: false,
+    tipsData:{
+      tipsTop: '点此切换颜色,双击颜色即可选中',
+      tipsMain: '双击可复制数值',
+      tipsBottom: '如遇到问题或有更好的建议,请发邮件至:',
+      tipsMail:'of_tcl@163.com'
+    },
     postList: postData.postList,
     one: postData.postList[0],
     listFleg:false,
@@ -30,6 +37,40 @@ Page({
   //按钮触摸结束触发的事件
   touchEnd: function (e) {
     this.touchEndTime = e.timeStamp
+  },
+  openTips:function(){//开启提示
+    this.setData({ tipsFleg: true })
+  },
+  closeTips:function(){//关闭提示
+    this.setData({ tipsFleg: false })
+  },
+  copyText: function (e) { // 文字拷贝
+    var that = this
+    //防止长按时会触发点击事件
+    if (that.touchEndTime - that.touchStartTime < 350) {
+      //当前点击的时间
+      var currentTime = e.timeStamp
+      var lastTapTime = that.lastTapTime
+      //更新最后一次点击时间
+      that.lastTapTime = currentTime
+      if (currentTime - lastTapTime < 300) {
+        // 成功触发双击事件时，取消单击事件的执行
+        clearTimeout(that.lastTapTimeoutFunc);
+        wx.setClipboardData({
+          data: e.currentTarget.dataset.val,
+          success: function (res) {
+            wx.getClipboardData({
+              success: function (res) {
+                wx.showToast({
+                  title: '复制成功'
+                })
+              }
+            })
+          }
+        })
+      }
+    }
+    
   },
   showPicker:function(){//显示picker
     this.setData({ listFleg: true })
@@ -61,10 +102,10 @@ Page({
     }
     
   },
-  clinkNo: function (){
+  clinkNo: function (){ // 关闭
     this.closePicker()
   },
-  clinkYes: function () {
+  clinkYes: function () { // 点击确定
     let roll = Math.round(Math.random()*49+1)
     this.setData({
       one: this.data.postList[this.data.index],

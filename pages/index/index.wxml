@@ -1,23 +1,35 @@
 <!--index.wxml-->
 <view class="container">
   <view class="main">
+    <icon class="iconfont tips_cli" bindtap="openTips"></icon>
+    <view class="first_guide {{tipsFleg?'':'hidden'}}">
+      <view class='picker_blank' bindtap="closeTips"></view>
+      <view class='guide_box' bindtap="closeTips">
+        <view class="guide_roll"></view>
+        <view class='guide_top'>{{tipsData.tipsTop}}</view>
+        <view class="guide_rectangle"></view>
+        <view class="guide_main">{{tipsData.tipsMain}}</view>
+        <view class="guide_bottom">{{tipsData.tipsBottom}}</view>
+        <view class="guide_mail">{{tipsData.tipsMail}}</view>
+      </view>
+    </view>
     <view class='color_roll' style="background-color:{{one.hex}};border-radius: {{rollPercentage+'%'}};" bindtap="showPicker" animation="{{blockChange}}"></view>
     <view class='color_text'>
       <view class='text_name'>
         <text class='text_l'>颜色名 : </text>
-        <text class='text_r'>{{one.name}}</text>
+        <text class='text_r' bindtouchstart="touchStart" bindtouchend="touchEnd" bindtap='copyText' data-val="{{one.name}}">{{one.name}}</text>
       </view>
       <view class='text_name'>
         <text class='text_l'>中文名 : </text>
-        <text class='text_r'>{{one.chinese}}</text>
+        <text class='text_r' bindtouchstart="touchStart" bindtouchend="touchEnd" bindtap='copyText' data-val="{{one.chinese}}">{{one.chinese}}</text>
       </view>
       <view class='text_name'>
         <text class='text_l'>HEX Rgb : </text>
-        <text class='text_r'>{{one.hex}}</text>
+        <text class='text_r' bindtouchstart="touchStart" bindtouchend="touchEnd" bindtap='copyText' data-val="{{one.hex}}">{{one.hex}}</text>
       </view>
       <view class='text_name'>
         <text class='text_l'>Decimal : </text>
-        <text class='text_r'>{{one.decimal}}</text>
+        <text class='text_r' bindtouchstart="touchStart" bindtouchend="touchEnd" bindtap='copyText' data-val="{{one.decimal}}">{{one.decimal}}</text>
       </view>
     </view>
     <view class="picker {{listFleg?'':'hidden'}}">
